@@ -7,5 +7,9 @@ def create_order(order_id: str) -> None:
     logger.info("order_created", order_id=order_id)
 
 
-if __name__ == "__main__":
+def main() -> None:
     create_order("order-001")
+
+
+if __name__ == "__main__":
+    main()
