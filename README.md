@@ -13,3 +13,17 @@ Creates a new order in the system.
 
 **Logs:**
 - `order_created` — Logged when an order is successfully created, includes the order ID
+
+## HTTP Interface
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/healthz` | GET | Liveness probe |
+| `/readyz` | GET | Readiness probe |
+| `/orders` | POST | Creates a new order |
+
+### Running the service
+
+```bash
+uvicorn src.order_service.app:app --host 0.0.0.0 --port 8003
+```
