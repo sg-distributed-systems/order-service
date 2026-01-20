@@ -25,3 +25,9 @@ class AppError(Exception):
             "error_message": self.message,
             "error_details": self.details or {},
         }
+
+
+class ValidationError(AppError):
+    """Raised when input validation fails."""
+
+    code: str = "VALIDATION_ERROR"

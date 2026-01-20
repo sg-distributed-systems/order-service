@@ -6,13 +6,22 @@ delegate to core business logic functions.
 """
 from fastapi import APIRouter
 
-from .main import create_order
 from .schemas import CreateOrderRequest, CreateOrderResponse
+from .service import create_order
 
 router = APIRouter()
 
 
-@router.post("/orders", response_model=CreateOrderResponse)
+@router.post("/orders", response_model=CreateOrderResponse, status_code=200)
 def create_order_route(req: CreateOrderRequest) -> CreateOrderResponse:
-    create_order(req.order_id)
-    return CreateOrderResponse(status="ok")
+    result = create_order(
+        customer_id=req.customer_id,
+        items=req.items,
+        shipping_address=req.shipping_address,
+    )
+    return CreateOrderResponse(
+        order_id=result["order_id"],
+        status=result["status"],
+        total=result["total"],
+        created_at=result["created_at"],
+    )
