@@ -61,3 +61,21 @@ def create_order(
 def cancel_order(order_id: str, reason: str) -> dict:
     logger.info("order_cancellation", order_id=order_id, reason=reason)
     return {"order_id": order_id, "status": "cancelled", "cancelled_at": datetime.utcnow()}
+
+
+def apply_discount_code(order_id: str, code: str, subtotal: Decimal) -> Decimal:
+    logger.info("discount_code_applied", order_id=order_id, code=code)
+
+    if not code:
+        raise ValidationError("discount_code_required")
+
+    discount = Decimal("0.10") if code.upper().startswith("SAVE") else Decimal("0")
+    adjusted = subtotal * (Decimal("1") - discount)
+
+    logger.debug(
+        "discount_calculated",
+        order_id=order_id,
+        discount=str(discount),
+        adjusted_total=str(adjusted),
+    )
+    return adjusted
