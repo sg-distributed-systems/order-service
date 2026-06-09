@@ -15,7 +15,7 @@ from core_logger import get_logger
 from .errors import ValidationError
 from .schemas import Address, OrderItem
 
-logger = get_logger("order-service")
+logger = get_logger("order-service", tier="compliance")
 
 
 def create_order(
