@@ -10,12 +10,12 @@ from decimal import Decimal
 from typing import List
 from uuid import uuid4
 
-from core_logger import get_logger
+from core_logger import Tier, get_logger
 
 from .errors import ValidationError
 from .schemas import Address, OrderItem
 
-logger = get_logger("order-service")
+logger = get_logger("order-service", tier=Tier.BUSINESS)
 
 
 def create_order(
